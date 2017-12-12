@@ -5,12 +5,13 @@ import java.awt.image.BufferedImage;
 
 public class Tile
 {
-	public static final int TILEWIDTH = 32, TILEHEIGHT = 32;
+	public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
 	
 	public static Tile[] tiles = new Tile[256];
-	public static Tile grassTile_C = new GrassTile_C(15);
-	public static Tile stoneTile_C = new StoneTile_C(25);
-	public static Tile sandTile_C = new SandTile_C(35);
+	public static Tile grassTile_C = new GrassTile_C(0);
+	public static Tile sandTile_C = new SandTile_C(1);
+	public static Tile stoneTile_C = new StoneTile_C(2);
+	
 	
 	protected BufferedImage texture;
 	protected final int id;

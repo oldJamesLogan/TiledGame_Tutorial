@@ -9,6 +9,7 @@ import java.awt.image.BufferStrategy;
 
 import dev.javagame.tilegame.display.Display;
 import dev.javagame.tilegame.gfx.Assets;
+import dev.javagame.tilegame.gfx.GameCamera;
 import dev.javagame.tilegame.input.KeyManager;
 import dev.javagame.tilegame.states.GameState;
 import dev.javagame.tilegame.states.MenuState;
@@ -20,14 +21,13 @@ import dev.javagame.tilegame.worlds.World;
 public class Game implements Runnable
 {
 	/*
-	 * voy por el capitulo 16
+	 * voy por el capitulo 20
 	 */
 	
 	private int width, height;
 	private String title;
 	
 	private Display display;
-	private KeyManager keyManager;
 	
 	private Thread thread;
 	private volatile boolean running = false;
@@ -37,9 +37,11 @@ public class Game implements Runnable
 	
 	private State gameState;
 	private State menuState;
-	private World world;
 	
-	int x = 0, y = 0;
+	private KeyManager keyManager;
+	
+	private static GameCamera camera;
+	
 	int ticks = 0, renders = 0;
 	
 	public Game(String title, int width, int height)
@@ -50,6 +52,7 @@ public class Game implements Runnable
 		this.title = title;
 		
 		keyManager = new KeyManager();
+		camera = new GameCamera(this, 0, 0);
 	}
 	
 	private void init()
@@ -61,8 +64,6 @@ public class Game implements Runnable
 		menuState = new MenuState(this);
 		State.setState(gameState);
 //		State.setState(menuState);
-		
-		world = new World("qwerty");
 		
 		Assets.init();
 	}
@@ -96,7 +97,6 @@ public class Game implements Runnable
 		
 		//Draw Begin
 		
-		world.render(g);
 		
 		if(State.getState() != null)
 		{
@@ -177,5 +177,20 @@ public class Game implements Runnable
 	public KeyManager getKeyManager()
 	{
 		return keyManager;
+	}
+	
+	public static GameCamera getCamera()
+	{
+		return camera;
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	public int getHeight()
+	{
+		return height;
 	}
 }
